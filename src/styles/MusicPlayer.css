@@ -167,8 +167,8 @@ body {
     }
     
     .controls img {
-        width: 48px;
-        height: 48px;
+        width: 80px;
+        height: 80px;
         border-radius: 14px;
     }
     
@@ -206,6 +206,7 @@ body {
         right: 28px;
         padding: 10px 16px 10px 14px;
         gap: 14px;
+        font-size: 32px;
     }
     
     .controls img {
