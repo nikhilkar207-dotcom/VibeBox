@@ -27,6 +27,9 @@
     display: flex;
     gap: 20px;
     overflow: scroll;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .songs li
@@ -41,9 +44,6 @@
     border: 2px solid var(--border-color);
     width: 75px;
     height: 75px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: auto;
 }
 
 .songs li:hover {
