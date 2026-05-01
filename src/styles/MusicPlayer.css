@@ -154,7 +154,7 @@ body {
 
 @media (max-width: 640px) {
     .controls {
-        bottom: 16px;
+        bottom: 0px;
         left: 16px;
         right: 16px;
         transform: none;
@@ -201,7 +201,7 @@ body {
 
 @media (min-width: 1024px) {
     .controls {
-        bottom: 35px;
+        bottom: 28px;
         right: 28px;
         padding: 10px 16px 10px 14px;
         gap: 14px;
@@ -276,7 +276,7 @@ body {
     }
     
     .progress-bar {
-        bottom: 15px;
+        bottom: 0px;
         left: 16px;
         right: 16px;
         height: 8px;
@@ -336,4 +336,3 @@ body {
         min-height: 44px;
     }
 }
-
