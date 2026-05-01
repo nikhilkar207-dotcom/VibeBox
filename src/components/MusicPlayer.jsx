@@ -95,7 +95,7 @@ function MusicPlayer() {
 
     //Auto play
     useEffect(() => {
-        if(!audioRef.current) return;
+        if (!audioRef.current) return;
         const audio = audioRef.current;
         function autoPlay() {
             playNext();
@@ -186,14 +186,16 @@ function MusicPlayer() {
 
 
                 </div>
-               
-            </div>
-             <div className="progress-bar" onClick={handleSeek}>
+                <div className="progress-bar" onClick={handleSeek}>
                     <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+                </div>
+
             </div>
         </div>
     );
 }
 
 export default MusicPlayer;
+
+
 
