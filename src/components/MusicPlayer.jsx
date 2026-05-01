@@ -2,13 +2,19 @@ import { useState, useRef, useEffect } from "react";
 import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
 import { useSong } from "../musicStore";
 import "../styles/MusicPlayer.css";
-import { audio } from "motion/react-client";
 
 function MusicPlayer() {
     const audioRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const {
+        songs,
+        currentSongIndex,
+        setCurrentSongIndex,
+        isPlaying,
+        setIsPlaying
+    } = useSong();
+
+    const currentSong = songs[currentSongIndex];
 
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -89,17 +95,14 @@ function MusicPlayer() {
         };
     }, []);
 
-    const songs = useSong();
-
-    const currentSong = songs[currentSongIndex];
-
     //Auto play
     useEffect(() => {
         if (!audioRef.current) return;
         const audio = audioRef.current;
         function autoPlay() {
-            playNext();
-            setIsPlaying(!isPlaying);
+            const randomIndex = Math.floor(Math.random() * songs.length)
+            setCurrentSongIndex(randomIndex);
+            setIsPlaying(true);
         }
 
         audio.addEventListener("ended", autoPlay);
@@ -135,15 +138,15 @@ function MusicPlayer() {
     // Next song
     function playNext() {
         if (!songs.length) return;
-
-        setCurrentSongIndex((prev) => (prev + 1) % songs.length);
+        setCurrentSongIndex((currentSongIndex + 1) % songs.length);
+        console.log(currentSongIndex);
     }
 
     //  Previous song
     function playPrevious() {
         if (!songs.length) return;
 
-        setCurrentSongIndex((prev) => (prev === 0 ? songs.length - 1 : prev - 1));
+        setCurrentSongIndex((currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1));
     }
 
     // Update tab title & favicon
