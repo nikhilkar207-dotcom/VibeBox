@@ -41,8 +41,8 @@
     transition: all 0.1s ease-in;
     border-radius: 8px;
     border: 2px solid var(--border-color);
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
 }
 
 .songs li:hover {
