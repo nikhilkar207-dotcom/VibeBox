@@ -94,10 +94,21 @@
         right: auto;
 
         width: calc(100% - 24px);
-        max-width: 350px;
+        max-width: 260px;
 
         display: flex;
         align-items: center;
         gap: 12px;
     }
+    .controls img 
+    {
+        width: 100px;
+        height: 100px;
+    }
+    .controls-buttons button 
+    {
+        font-size: 32px;
+    }
+
+    .
 }
