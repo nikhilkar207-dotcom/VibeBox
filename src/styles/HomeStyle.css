@@ -1,0 +1,60 @@
+:root {
+    --background-color: #070A12;
+    --surface-color: rgba(12, 16, 24, 0.82);
+    --surface-elevated: rgba(22, 32, 51, 0.9);
+    --primary: #8B5CF6;
+    --accent: #22D3EE;
+    --text-color: #F8FAFC;
+    --secondary-color: #94A3B8;
+    --border-color: rgba(66, 86, 122, 0.35);
+}
+
+body {
+    background: radial-gradient(circle at top, #0B1020, #070A12);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+header 
+{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px 0px 10px;
+    color: var(--text-color);
+    align-items: center;
+}
+
+h2 {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 34px;
+    font-weight: bolder;
+}
+
+.search-container
+{
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-color);
+    backdrop-filter: blur(24px);
+
+    gap: 12px;
+    padding: 10px 14px 10px 12px;
+    background: var(--surface-color);
+    backdrop-filter: blur(24px);
+    border-radius: 80px;
+    border: 0.5px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+    z-index: 1000;
+    cursor: default;
+}
+
+.search-container, input 
+{
+    outline: none;
+    margin-left: 10px;
+}
