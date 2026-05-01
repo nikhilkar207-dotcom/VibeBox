@@ -1,8 +1,9 @@
 import supabase from "./supabase";
 import {useState, useEffect} from "react";
 
-export function useSong() {
-    const [songs, setSongs] = useState([]);
+export function getSongs() {
+    const setSongs = useSong(state => state.setSongs)
+
     // Fetch songs from Supabase
     useEffect(() => {
         async function fetchSongs() {
@@ -18,8 +19,26 @@ export function useSong() {
 
         fetchSongs();
     }, []);
-
-    return songs;
 }
 
+
+import { create } from "zustand";
+
+export const useSong = create((set) => ({
+    songs: [],
+    
+    currentSongIndex: 0,
+    isPlaying: false,
+
+    search: "",
+
+    setSongs: (songs) => set({ songs }),
+    setSearch: (search) => set({ search }),
+
+    setSongs: (songs) => set({ songs }),
+
+    setCurrentSongIndex: (index) => set({ currentSongIndex: index }),
+
+    setIsPlaying: (value) => set({ isPlaying: value }),
+}));
 
