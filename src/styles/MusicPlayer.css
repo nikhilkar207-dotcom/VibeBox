@@ -31,8 +31,7 @@ body {
     padding: 10px 14px 10px 12px;
     background: var(--surface-color);
     backdrop-filter: blur(24px);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 80px;
     border: 0.5px solid var(--border-color);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
@@ -126,7 +125,7 @@ body {
 
 .progress-bar {
     position: absolute;
-    top: 2px;
+    top: 10px;
     left: 12px;
     right: 12px;
     width: auto;
@@ -193,7 +192,7 @@ body {
     }
     
     .progress-bar {
-        top: 2px;
+        top: 10px;
         left: 16px;
         right: 16px;
         height: 3px;
