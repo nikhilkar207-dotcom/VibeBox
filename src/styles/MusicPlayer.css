@@ -109,4 +109,7 @@
     {
         font-size: 32px;
     }
+    .progress-bar {
+        height: 8px;
+    }
 }
