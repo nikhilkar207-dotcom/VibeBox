@@ -186,12 +186,14 @@ function MusicPlayer() {
 
 
                 </div>
-                <div className="progress-bar" onClick={handleSeek}>
+               
+            </div>
+             <div className="progress-bar" onClick={handleSeek}>
                     <div className="progress-fill" style={{ width: `${progress}%` }}></div>
-                </div>
             </div>
         </div>
     );
 }
 
 export default MusicPlayer;
+
