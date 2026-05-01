@@ -1,7 +1,7 @@
 :root {
     --background-color: #070A12;
-    --surface-color: #111827;
-    --surface-elevated: #162033;
+    --surface-color: rgba(17, 24, 39, 0.75);
+    --surface-elevated: rgba(22, 32, 51, 0.85);
 
     --primary: #8B5CF6;
     --accent: #22D3EE;
@@ -9,12 +9,17 @@
     --text-color: #F8FAFC;
     --secondary-color: #94A3B8;
 
-    --border-color: #24324A;
+    --border-color: rgba(36, 50, 74, 0.6);
+}
+
+/* BODY FEEL (important upgrade) */
+body {
+    background: radial-gradient(circle at top, #0B1020, #070A12);
 }
 
 /* container */
 .music-player {
-    width: 300px;
+    width: 320px;
 }
 
 /* MINI PLAYER */
@@ -25,53 +30,84 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 14px;
 
-    padding: 10px 14px;
+    padding: 12px 14px;
 
     background: var(--surface-color);
     border: 1px solid var(--border-color);
+    backdrop-filter: blur(18px);
 
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
 
     box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.35),
-        0 2px 8px rgba(124, 92, 255, 0.08);
+        0 20px 50px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(139, 92, 246, 0.08);
+
+    transition: all 0.25s ease;
+}
+
+/* hover premium feel */
+.controls:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.65),
+        0 0 25px rgba(139, 92, 246, 0.15);
 }
 
 /* COVER IMAGE */
 .controls img {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    object-fit: cover;
 }
 
 /* BUTTONS */
 .controls-buttons {
     display: flex;
-    gap: 15px;
+    gap: 16px;
+    align-items: center;
 }
 
 .controls-buttons button {
-    color: var(--primary);
+    color: var(--text-color);
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
+
+    transition: all 0.2s ease;
+    opacity: 0.8;
 }
 
-/* PROGRESS BAR (Spotify style) */
+/* hover glow */
+.controls-buttons button:hover {
+    transform: scale(1.15);
+    color: var(--accent);
+    opacity: 1;
+}
+
+/* PLAY BUTTON SPECIAL */
+.controls-buttons button:nth-child(2) {
+    font-size: 22px;
+    color: var(--primary);
+}
+
+/* PROGRESS BAR */
 .progress-bar {
     position: absolute;
-   
-
     bottom: 0px;
     height: 4px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.08);
+
+    right: 0px;
+
+    background: rgba(255, 255, 255, 0.06);
     overflow: hidden;
     cursor: pointer;
 }
@@ -79,37 +115,36 @@
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: var(--primary);
+
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+
     transition: width 0.15s linear;
 }
 
+/* MOBILE */
 @media (max-width: 900px) {
     .controls {
-        position: fixed;
-        bottom: 12px;
-
         left: 50%;
+        right: auto;
         transform: translateX(-50%);
 
-        right: auto;
-
         width: calc(100% - 24px);
-        max-width: 350px;
+        max-width: 420px;
 
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        border-radius: 20px;
     }
-    .controls img 
-    {
-        width: 100px;
-        height: 100px;
+
+    .controls img {
+        width: 70px;
+        height: 70px;
     }
-    .controls-buttons button 
-    {
-        font-size: 32px;
+
+    .controls-buttons button {
+        font-size: 26px;
     }
+
     .progress-bar {
-        height: 8px;
+        height: 6px;
     }
 }
