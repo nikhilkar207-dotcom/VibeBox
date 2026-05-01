@@ -125,7 +125,7 @@ body {
 
 .progress-bar {
     position: fixed;
-    bottom: 15px;
+    bottom: 0px;
     left: 12px;
     right: 12px;
     width: auto;
@@ -154,7 +154,7 @@ body {
 
 @media (max-width: 640px) {
     .controls {
-        bottom: 0px;
+        bottom: 16px;
         left: 16px;
         right: 16px;
         transform: none;
