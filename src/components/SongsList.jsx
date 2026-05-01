@@ -38,9 +38,7 @@ function SongsList() {
                                 backgroundImage: `url(${song.cover_url})`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
-                                backgroundRepeat: "no-repeat",
-                                width: "100px",
-                                height: "100px"
+                                backgroundRepeat: "no-repeat"
                             }}
                         ><div className="overlay"><p>{song.song_name}</p></div></li>
                     ))}
