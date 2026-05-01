@@ -1,0 +1,60 @@
+:root {
+    --background-color: #070A12;
+    --surface-color: rgba(12, 16, 24, 0.82);
+    --surface-elevated: rgba(22, 32, 51, 0.9);
+    --primary: #8B5CF6;
+    --accent: #22D3EE;
+    --text-color: #F8FAFC;
+    --secondary-color: #94A3B8;
+    --border-color: rgba(66, 86, 122, 0.35);
+}
+
+.songs-list 
+{
+    margin: 20px;
+    color: var(--text-color);
+}
+
+.songs-list, section
+{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 12px;
+}
+
+.songs {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    overflow: scroll;
+}
+
+.songs li
+{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-end;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+}
+
+.songs li:hover {
+    scale: 1.1;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.75),
+        transparent
+    );
+}
