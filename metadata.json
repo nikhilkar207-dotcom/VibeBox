@@ -1,0 +1,6 @@
+{
+  "name": "VibeBox",
+  "description": "A clean, minimal React application shell built with Vite and Tailwind CSS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
