@@ -24,6 +24,7 @@ header
     margin: 10px 10px 0px 10px;
     color: var(--text-color);
     align-items: center;
+    flex-wrap: wrap;
 }
 
 h2 {
@@ -51,6 +52,7 @@ h2 {
     transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     z-index: 1000;
     cursor: default;
+    flex-wrap: wrap;
 }
 
 .search-container, input 
