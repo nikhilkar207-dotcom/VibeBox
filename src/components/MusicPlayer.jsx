@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
+import { FiX } from "react-icons/fi";
 import { useSong } from "../musicStore";
 import "../styles/MusicPlayer.css";
 
@@ -8,13 +9,14 @@ function MusicPlayer() {
 
     const {
         songs,
+        playlist,
         currentSongIndex,
         setCurrentSongIndex,
         isPlaying,
         setIsPlaying
     } = useSong();
 
-    const currentSong = songs[currentSongIndex];
+    const currentSong = playlist[currentSongIndex];
 
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -67,6 +69,7 @@ function MusicPlayer() {
         }
     }, [])
 
+
     // Get the progress
     useEffect(() => {
         if (!duration) return;
@@ -95,13 +98,15 @@ function MusicPlayer() {
         };
     }, []);
 
-    //Auto play
     useEffect(() => {
-        if (!audioRef.current) return;
         const audio = audioRef.current;
+        if (!audio) return;
+
         function autoPlay() {
-            const randomIndex = Math.floor(Math.random() * songs.length)
-            setCurrentSongIndex(randomIndex);
+            if (!playlist.length) return;
+
+            const nextIndex = (currentSongIndex + 1) % playlist.length;
+            setCurrentSongIndex(nextIndex);
             setIsPlaying(true);
         }
 
@@ -109,8 +114,8 @@ function MusicPlayer() {
 
         return () => {
             audio.removeEventListener("ended", autoPlay);
-        }
-    }, [currentTime])
+        };
+    }, [playlist, currentSongIndex]);
 
     //  Handle song change
     useEffect(() => {
@@ -137,16 +142,16 @@ function MusicPlayer() {
 
     // Next song
     function playNext() {
-        if (!songs.length) return;
-        setCurrentSongIndex((currentSongIndex + 1) % songs.length);
+        if (!playlist.length) return;
+        setCurrentSongIndex((currentSongIndex + 1) % playlist.length);
         console.log(currentSongIndex);
     }
 
     //  Previous song
     function playPrevious() {
-        if (!songs.length) return;
+        if (!playlist.length) return;
 
-        setCurrentSongIndex((currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1));
+        setCurrentSongIndex((currentSongIndex === 0 ? playlist.length - 1 : currentSongIndex - 1));
     }
 
     // Update tab title & favicon
@@ -171,9 +176,13 @@ function MusicPlayer() {
         <div className="music-player">
             <audio src={currentSong?.audio_url} ref={audioRef} />
 
-            <div className="controls">
-                <img src={currentSong?.cover_url} alt="cover" />
 
+            <div className="controls">
+
+                <img src={currentSong?.cover_url} alt="cover" />
+                {/* <div className="cancle-icon">
+                    <FiX size={17} />
+                </div> */}
                 <div className="controls-buttons">
                     <button className="control-btn" onClick={playPrevious}>
                         <FaBackward />
@@ -199,6 +208,4 @@ function MusicPlayer() {
 }
 
 export default MusicPlayer;
-
-
 
