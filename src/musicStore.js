@@ -29,6 +29,11 @@ export const useSong = create((set) => ({
     
     currentSongIndex: 0,
     isPlaying: false,
+    currentSong: null,
+
+    playlist: null,
+    setPlaylist: (playlist) => set({playlist}),
+    setCurrentSong: (currentSong) => set({currentSong}),
 
     search: "",
 
@@ -41,4 +46,3 @@ export const useSong = create((set) => ({
 
     setIsPlaying: (value) => set({ isPlaying: value }),
 }));
-
