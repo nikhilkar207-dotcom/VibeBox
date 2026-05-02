@@ -63,7 +63,7 @@ h2 {
     color: var(--text-color);
 }
 
-@media (max-width: 800px) 
+@media (max-width: 940px) 
 {
     .search-container {
         display: none;
