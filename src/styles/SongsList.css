@@ -13,6 +13,7 @@
 {
     margin: 20px;
     color: var(--text-color);
+    width: 100%;
 }
 
 .songs-list, section
@@ -22,12 +23,22 @@
     margin: 12px;
 }
 
+.cancle-icon 
+{
+    position: fixed;
+    top: 3px;
+    right: 10px;
+    color: var(--primary)
+}
+
 .songs {
-    margin-top: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
     gap: 20px;
     overflow: scroll;
     flex-wrap: nowrap;
+
 }
 
 .songs li
