@@ -10,6 +10,7 @@ function HomePage() {
 
     const search = useSong(state => state.search);
     const setSearch = useSong(state => state.setSearch);
+    const playlist = useSong(state => state.playlist)
 
     getSongs();
     return (
@@ -22,7 +23,7 @@ function HomePage() {
                 </div>
             </header>
             <SongsList />
-            <MusicPlayer />
+            {playlist && <MusicPlayer />}
         </div>
     );
 }
