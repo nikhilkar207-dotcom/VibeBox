@@ -8,5 +8,6 @@ body {
     background: var(--background-color);
     margin: 0;           /* remove default spacing */
     min-height: 100vh;  /* safer than height */
+    width: 100%;
     overflow-x: hidden; /* stop horizontal movement */
 }
