@@ -1,11 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
-import { FiX } from "react-icons/fi";
 import { useSong } from "../musicStore";
 import "../styles/MusicPlayer.css";
 
 function MusicPlayer() {
     const audioRef = useRef(null);
+    const [volume, setVolume] = useState(1);
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
+    }, [volume]);
+
+
 
     const {
         songs,
@@ -23,6 +30,35 @@ function MusicPlayer() {
 
     const [progress, setProgress] = useState(0);
 
+    useEffect(() => {
+        if (!("mediaSession" in navigator) || !currentSong) return;
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: currentSong.song_name || "Unknown",
+            artist: currentSong.artist || "Unknown Artist",
+            album: "Music Player",
+            artwork: [
+                {
+                    src: currentSong.cover_url,
+                    sizes: "512x512",
+                    type: "image/png"
+                }
+            ]
+        });
+
+        navigator.mediaSession.setActionHandler("play", () => {
+            audioRef.current?.play();
+        });
+
+        navigator.mediaSession.setActionHandler("pause", () => {
+            audioRef.current?.pause();
+        });
+
+        navigator.mediaSession.setActionHandler("previoustrack", playPrevious);
+        navigator.mediaSession.setActionHandler("nexttrack", playNext);
+
+    }, [currentSong]);
+
     // Handle seek
     function handleSeek(e) {
         const audio = audioRef.current;
@@ -38,6 +74,50 @@ function MusicPlayer() {
 
         audio.currentTime = newTime;
     }
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        let fadeInterval;
+
+        function handleTimeUpdate() {
+            if (!audio.duration) return;
+
+            const remaining = audio.duration - audio.currentTime;
+
+            // start fading last 3 seconds
+            if (remaining <= 3 && remaining > 0) {
+                const fadeStep = 0.02;
+
+                if (!fadeInterval) {
+                    fadeInterval = setInterval(() => {
+                        if (audio.volume > 0.05) {
+                            audio.volume = Math.max(0, audio.volume - fadeStep);
+                        }
+                    }, 100);
+                }
+            }
+        }
+
+        function handleEnded() {
+            clearInterval(fadeInterval);
+            audio.volume = volume;
+
+            const nextIndex = (currentSongIndex + 1) % playlist.length;
+            setCurrentSongIndex(nextIndex);
+            setIsPlaying(true);
+        }
+
+        audio.addEventListener("timeupdate", handleTimeUpdate);
+        audio.addEventListener("ended", handleEnded);
+
+        return () => {
+            audio.removeEventListener("timeupdate", handleTimeUpdate);
+            audio.removeEventListener("ended", handleEnded);
+            clearInterval(fadeInterval);
+        };
+    }, [currentSongIndex, playlist, volume]);
 
     // Get current time of the music
 
@@ -140,11 +220,12 @@ function MusicPlayer() {
         }
     }
 
-    // Next song
     function playNext() {
         if (!playlist.length) return;
-        setCurrentSongIndex((currentSongIndex + 1) % playlist.length);
-        console.log(currentSongIndex);
+
+        const next = (currentSongIndex + 1) % playlist.length;
+        setCurrentSongIndex(next);
+        setIsPlaying(true);
     }
 
     //  Previous song
@@ -180,9 +261,6 @@ function MusicPlayer() {
             <div className="controls">
 
                 <img src={currentSong?.cover_url} alt="cover" />
-                {/* <div className="cancle-icon">
-                    <FiX size={17} />
-                </div> */}
                 <div className="controls-buttons">
                     <button className="control-btn" onClick={playPrevious}>
                         <FaBackward />
@@ -208,4 +286,6 @@ function MusicPlayer() {
 }
 
 export default MusicPlayer;
+
+
 
