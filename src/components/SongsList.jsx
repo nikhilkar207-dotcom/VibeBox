@@ -45,7 +45,7 @@ function SongSection({ songs, playSong, sectionTitle }) {
 function SongsList() {
   const { songs, setIsPlaying, setCurrentSongIndex, setPlaylist } = useSong();
   const search = useSong(state => state.search);
-  const { languagePlaylists } = usePlaylist();
+  const { languagePlaylists, moodPlaylist} = usePlaylist();
 
   const filteredSongs = songs.filter(song => {
     if (!search) return true;
@@ -79,6 +79,15 @@ function SongsList() {
           key={lang} 
           playSong={(song) => playSong(song, langSongs)} 
           sectionTitle={`${lang.charAt(0).toUpperCase() + lang.slice(1)} Songs`} 
+        />
+      ))}
+
+      {Object.entries(moodPlaylist).map(([mood, moodSong]) => (
+        <SongSection 
+          songs={moodSong} 
+          key={mood} 
+          playSong={(song) => playSong(song, moodSong)} 
+          sectionTitle={`${mood.charAt(0).toUpperCase() + mood.slice(1)} Songs`} 
         />
       ))}
     </div>
