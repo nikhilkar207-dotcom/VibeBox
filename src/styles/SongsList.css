@@ -13,7 +13,8 @@
 {
     margin: 20px;
     color: var(--text-color);
-    width: 100%;
+    width: 100vw;
+    height: auto;
 }
 
 .songs-list, section
