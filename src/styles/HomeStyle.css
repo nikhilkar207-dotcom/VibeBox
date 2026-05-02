@@ -3,73 +3,310 @@
     --surface-color: rgba(12, 16, 24, 0.82);
     --surface-elevated: rgba(22, 32, 51, 0.9);
     --primary: #8B5CF6;
+    --primary-glow: rgba(139, 92, 246, 0.3);
     --accent: #22D3EE;
     --text-color: #F8FAFC;
     --secondary-color: #94A3B8;
     --border-color: rgba(66, 86, 122, 0.35);
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background: radial-gradient(circle at top, #0B1020, #070A12);
+    background: radial-gradient(ellipse at 50% 0%, #0B1020 0%, #070A12 70%);
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-header 
-{
+/* ==================== HEADER ==================== */
+header {
     display: flex;
     justify-content: space-between;
-    margin: 10px 10px 0px 10px;
-    color: var(--text-color);
     align-items: center;
-    position: static;
-    top: 13px;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(
+        to bottom,
+        rgba(7, 10, 18, 0.95) 0%,
+        rgba(7, 10, 18, 0.8) 80%,
+        rgba(7, 10, 18, 0) 100%
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.3s var(--transition-smooth);
 }
 
+/* Logo / App Name */
 h2 {
-    background: linear-gradient(90deg, var(--primary), var(--accent));
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0;
+    background: linear-gradient(
+        135deg, 
+        var(--primary) 0%, 
+        var(--accent) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 34px;
-    font-weight: bolder;
+    background-clip: text;
+    position: relative;
+    transition: all 0.3s var(--transition-smooth);
+    cursor: pointer;
+    user-select: none;
 }
 
-.search-container
-{
+h2:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transition: width 0.3s var(--transition-smooth);
+    border-radius: 1px;
+}
+
+h2:hover::after {
+    width: 100%;
+}
+
+/* Search Container */
+.search-container {
     display: flex;
     align-items: center;
-    background-color: var(--surface-color);
-    backdrop-filter: blur(24px);
-
-    gap: 12px;
-    padding: 10px 14px 10px 12px;
-    background: var(--surface-color);
-    backdrop-filter: blur(24px);
-    border-radius: 80px;
-    border: 0.5px solid var(--border-color);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+    gap: 10px;
+    padding: 10px 18px 10px 16px;
+    background: rgba(12, 16, 24, 0.7);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 4px 24px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.3s var(--transition-smooth);
     z-index: 1000;
-    cursor: default;
+    min-width: 220px;
+}
+
+.search-container:focus-within {
+    background: rgba(12, 16, 24, 0.85);
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 
+        0 4px 24px rgba(0, 0, 0, 0.3),
+        0 0 0 3px var(--primary-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+.search-container svg {
+    color: var(--secondary-color);
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: color 0.3s var(--transition-smooth);
+}
+
+.search-container:focus-within svg {
+    color: var(--primary);
 }
 
 .search-container input {
     outline: none;
-    background: transparent; /* better for glass UI */
-    margin-left: 10px;
+    background: transparent;
     border: none;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 400;
+    width: 100%;
+    letter-spacing: -0.2px;
+}
+
+.search-container input::placeholder {
+    color: var(--secondary-color);
+    opacity: 0.7;
+    font-weight: 400;
+    transition: opacity 0.3s var(--transition-smooth);
+}
+
+.search-container:focus-within input::placeholder {
+    opacity: 0.5;
+}
+
+/* Clear Search Button */
+.search-clear {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s var(--transition-smooth);
+    pointer-events: none;
+}
+
+.search-container:focus-within .search-clear,
+.search-container input:not(:placeholder-shown) ~ .search-clear {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+}
+
+.search-clear:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-color);
 }
 
-@media (max-width: 940px) 
-{
+/* ==================== MOBILE SEARCH (HIDDEN BY DEFAULT) ==================== */
+.mobile-search-toggle {
+    display: none;
+    background: rgba(12, 16, 24, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s var(--transition-smooth);
+}
+
+.mobile-search-toggle:hover {
+    background: rgba(12, 16, 24, 0.8);
+    transform: scale(1.05);
+}
+
+.mobile-search-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Mobile Search Overlay */
+.mobile-search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(7, 10, 18, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    padding: 16px;
+    z-index: 1001;
+    animation: slideDown 0.3s var(--transition-smooth);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-search-overlay .search-container {
+    width: 100%;
+    min-width: unset;
+}
+
+.mobile-search-close {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    header {
+        padding: 12px 16px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
     .search-container {
         display: none;
     }
 
+    .mobile-search-toggle {
+        display: flex;
+    }
+
+    .mobile-search-overlay.active {
+        display: flex;
+        align-items: center;
+        height: 70px;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-search-toggle {
+        display: none;
+    }
+
+    .mobile-search-overlay {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px 12px;
+    }
+
     h2 {
-        font-size: 38px;
+        font-size: 22px;
+    }
+}
+
+/* ==================== SCROLL EFFECT ==================== */
+header.scrolled {
+    background: rgba(7, 10, 18, 0.98);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+    padding: 10px 24px;
+}
+
+@media (max-width: 768px) {
+    header.scrolled {
+        padding: 8px 16px;
     }
 }
