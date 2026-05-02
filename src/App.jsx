@@ -1,11 +1,16 @@
-
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import SearchPage from "./pages/SearchPage";
+import Layout from "./layout";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="search" element={<SearchPage />} />
+      </Route>
+    </Routes>
   );
 }
 
