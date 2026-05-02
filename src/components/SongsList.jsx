@@ -2,7 +2,7 @@ import "../styles/SongsList.css";
 
 import { useSong } from "../musicStore";
 
-import { usePlaylist } from "../playlists";
+import usePlaylist from "../playlists";
 
 function SongSection({ songs, playSong, sectionTitle }) {
     return (
