@@ -1,3 +1,4 @@
+
 import "../styles/SongsList.css";
 
 import { useSong } from "../musicStore";
@@ -28,12 +29,11 @@ function SongSection({ songs, playSong, sectionTitle }) {
 }
 
 function SongsList() {
-    const { songs } = useSong()
-    const { setCurrentSongIndex, setIsPlaying } = useSong();
+    const { songs ,setIsPlaying, setCurrentSong, currentSongIndex, setCurrentSongIndex, setPlaylist} = useSong();
 
     const search = useSong(state => state.search);
 
-    const { languagePlaylists, moodPlaylist } = usePlaylist();
+    const { languagePlaylists } = usePlaylist();
 
     const filteredSongs = songs.filter(song => {
         if (!search) return true;
@@ -43,8 +43,11 @@ function SongsList() {
     }
     );
 
-    function playSong(song) {
-        const index = songs.findIndex(s => s.id === song.id);
+    function playSong(song, playlist) {
+        const index = playlist.findIndex(s => s.id === song.id);
+
+        setPlaylist(playlist);
+        console.log(playlist);
         setCurrentSongIndex(index);
         setIsPlaying(true);
     }
@@ -54,13 +57,13 @@ function SongsList() {
             {search.trim() !== "" && (
                 <SongSection
                     songs={filteredSongs}
-                    playSong={playSong}
+                    playSong={(song) =>playSong(song,filteredSongs)}
                     sectionTitle="For You"
                 />
             )}
 
             {Object.entries(languagePlaylists).map(([lang, langSongs]) => (
-                <SongSection songs={langSongs} key={lang} playSong={playSong} sectionTitle={`${lang.charAt(0).toUpperCase() + lang.slice(1)} Songs`} />
+                <SongSection songs={langSongs} key={lang} playSong={(song) => playSong(song, langSongs)} sectionTitle={`${lang.charAt(0).toUpperCase() + lang.slice(1)} Songs`} />
             ))}
 
         </div>
