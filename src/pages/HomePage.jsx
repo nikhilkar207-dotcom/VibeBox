@@ -1,6 +1,6 @@
 import { React } from "react";
 import MusicPlayer from "../components/MusicPlayer";
-import SongsList from "../components/SongsList";
+import {SongsList} from "../components/SongsList";
 import "../styles/HomeStyle.css";
 import { FiSearch } from "react-icons/fi";
 
