@@ -85,4 +85,4 @@ function SongsList() {
   );
 }
 
-export default SongsList;
+export {SongsList};
